@@ -34,7 +34,8 @@
     "serve-favicon": "~2.2.0",
     "glob": "~4.0.5",
     "consolidate": "^0.12.1",
-    "swig": "^1.4.2"
+    "swig": "^1.4.2",
+    "safe-access": "^0.1.0"
   },
   "devDependencies": {
     "chai": "^2.2.0",
