@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- Title -->
+	<title>Bookmark Manager</title>
+
+	<!-- Style -->
+	<link rel="stylesheet" type="text/css" href="/assets/css/lib/bootstrap-3.3.4/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/assets/css/bookmark.css">
+
+</head>
+</head>
+<body data-ng-app='BookmarkManager'>
+	<div data-ng-controller='BookmarkCtrl'>
+		<div class="col-sm-3 col-nav-left">
+			<h4 class="logo">Bookmark Manager</h4>
+			<div class='menus text-center' data-ng-click="open()">
+				<button type='button' class='btn btn-info site-btn'> New Bookmark</button>
+			</div>
+			<div class="menus" data-ng-click="navPage('bookmark')">
+				<div class="bookmark-bar" data-ng-class='{active: page==="bookmark"}'>
+					<h4><span class="glyphicon glyphicon-star" area-hidden='true'></span> &nbsp;&nbsp;All Items</h4>
+				</div>
+					
+			</div>
+
+			<div class="menus" data-ng-click="navPage('folder')">
+				<div class="bookmark-bar" data-ng-class='{active: page==="folder"}'>
+					<h4><span class="glyphicon glyphicon-bookmark" area-hidden='true'></span> &nbsp;&nbsp;Bookmark Bar</h4>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-9">
+			  	<nav class="navbar navbar-default">
+			  			<div class="navbar-header page-scroll" style="padding-left:30px; padding-top:7px;">
+			  				<span data-ng-switch='page'>
+			  					<span data-ng-switch-when='folder'>
+				  					<input ng-model="newFolder"class='form-control site-input' placeholder='New Folder name'>
+				  					<button data-ng-click='saveFolder(newFolder)' class='btn btn-info'> Create </button>			  					
+				  				</span>
+				                <span data-ng-switch-when='bookmark-view'>
+				                	<button class='btn btn-success navbar-btn' data-ng-click="removeDirectory()"> Remove Directory </button>
+				                </span>
+			  				</span>
+			            </div>
+			            <div class="collapse navbar-collapse">
+			                <ul class="nav navbar-nav navbar-right" style="padding-right: 20px;padding-top:7px;">
+			                    <li class="navbar-btn divider">
+			                       <span class="glyphicon glyphicon-user" area-hidden='true'></span> &nbsp;Aruljothi Kuppusamy
+			                    </li>
+			                    <li class="navbar-btn">
+			                       <span class="glyphicon glyphicon-cog" area-hidden='true'></span>
+			                    </li>
+			                </ul>
+			            </div>
+			            <!-- /.navbar-collapse -->
+		    	</nav>
+		    	<div class='bookmark-content' >
+		    		<div style="min-height:30px; padding:10px; background-color:#fff;margin-bottom: 10px;" data-ng-if='bookmark_edit'>
+						Choose Folder:
+						<select class='form-control' ng-options="folder as folder.directoryName for folder in folders  track by folder.directoryId" ng-model="bookmarkDirectory" style="display:inline-block;width:250px;"></select>
+						<button class='btn btn-info site-btn' data-ng-click='saveBookmarkMove(bookmarkDirectory)'> Move </button>
+						<button class='btn btn-warning site-btn' data-ng-click='cancelBookmarkMove()'> cancel </button>
+		    		</div>
+		    		<div data-ng-switch='page'>
+
+		    			<!-- All Items -->
+		    			<div data-ng-switch-when='bookmark'>
+		    				<div class='items' data-ng-init="loadItem('bookmark')">
+				    			<span class='bookmark-item' data-ng-repeat='bookmark in bookmarks'>
+				    				<span class='item-url' data-ng-bind='bookmark.url' data-ng-click='openBookmark(bookmark.url)'>
+				    					Google
+				    				</span>
+				    				<span class='item-details'>
+				    					<span class='name' data-ng-bind='bookmark.title'>Google</span>
+				    					<span class='glyphicon glyphicon-edit' data-ng-click='moveBookmark(bookmark.bookmarkId, $index)'></span>
+				    					<span class='glyphicon glyphicon-remove' data-ng-click='removeBookmark(bookmark.bookmarkId, $index)'></span>
+				    				</span>
+				    			</span>
+			    			</div>
+
+		    			</div>
+
+		    			<div data-ng-switch-when='folder'>
+		    				<div class="folders" data-ng-init="loadItem('folder')">
+				    			<span class='bookmark-folder' data-ng-repeat='folder in folders' data-ng-click='loadBookmarks($index)'>
+				    				<span class='foldername' data-ng-bind='folder.directoryName'>
+				    				</span>
+				    				<span>
+				    					<span class='glyphicon glyphicon-folder-close'></span>
+				    				</span>
+				    			</span>
+				    		</div>		    				
+		    			</div>
+
+		    			<div data-ng-switch-when='bookmark-view'>
+	    					<ol class="breadcrumb">
+							  	<li><a href="javascript:void(0);" data-ng-click='loadItem("folder")'>Bookmarks Bar</a></li>
+							  	<li class='actove' data-ng-bind='folder_name'>Folder Name</li>
+							</ol>
+		    				
+		    				<div>
+		    					<div class='items'>
+					    			<span class='bookmark-item' data-ng-repeat='bookmark in bookmarks'>
+					    				<span class='item-url' data-ng-bind='bookmark.url' data-ng-click='openBookmark(bookmark.url)'>
+					    					Google
+					    				</span>
+					    				<span class='item-details'>
+					    					<span class='name' data-ng-bind='bookmark.title'>Google</span>
+					    					<span class='glyphicon glyphicon-edit' data-ng-click='moveBookmark(bookmark.bookmarkId, $index)'></span>
+				    						<span class='glyphicon glyphicon-remove' data-ng-click='removeBookmark(bookmark.bookmarkId, $index)'></span>
+					    				</span>
+					    			</span>
+				    			</div>
+		    				</div>
+		    			</div>
+		    			
+		    		</div>
+		    	</div>
+		</div>
+	</div>
+
+	<!-- New Bookmark Model -->
+	<script type="text/ng-template" id="myModalContent.html">
+		<div class="modal-header">
+			<h3 class="modal-title">New Bookmark</h3>
+		</div>
+		<div class="modal-body">
+			<table class='table table-horizontal'>
+				<tr><td><strong>Url</strong></td><td><input type='text' data-ng-model='bookmark.url' class='form-control'></td></tr>
+				<tr><td><strong>Name</strong></td><td><input type='text' data-ng-model='bookmark.title'class='form-control'></td></tr>
+				<tr><td><strong>Folder</strong></td><td>
+					<select class='form-control' ng-options="folder as folder.directoryName for folder in folders track by folder.directoryId" ng-model="bookmark.directory">
+				</td></tr>
+			</table>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-primary" data-ng-click="save(bookmark)">Save</button>
+			<button class="btn btn-warning" data-ng-click="cancel()">Cancel</button>
+		</div>
+	</script>
+
+
+	<!-- Script Section -->
+	<!-- Scripts -->
+    <script src="/assets/js/lib/angular/angular.min.js"></script>
+    <script src="/assets/js/lib/angular/ui-bootstrap-tpls-0.12.1.min.js"></script>
+
+    <!-- Angular Module -->
+    <script src="/assets/js/app.js"></script>
+</body>
+</html>

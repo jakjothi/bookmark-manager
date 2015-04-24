@@ -1,0 +1,147 @@
+body {
+	background-color: #f1f1f1;
+	font-family: Roboto, 'Helvetica Neue', Arial, sans-serif;
+	font-size: 16px;
+}
+
+.site-btn {
+	border-radius: 0px;
+	padding-left: 30px;
+	padding-right: 30px; 
+}
+
+.col-nav-left {
+	padding: 0px;
+	background: white;
+	box-shadow: 0 0 4px rgba(0,0,0,.14),2px 4px 8px rgba(0,0,0,.28);
+	color: #757575;
+	font-family: Roboto,'Helvetica Neue',Arial,sans-serif;
+	overflow-y: auto;	
+	min-height: 650px;
+	-webkit-transition: left 300ms ease-in-out;
+}
+
+.col-nav-left .logo {
+	border-bottom: 1px solid #e5e5e5;
+	padding: 10px;
+	padding-left: 20px;
+}
+
+.col-nav-left .menus{
+	padding: 10px;
+	border-bottom: 1px solid #e5e5e5;
+}
+
+.col-nav-left .menus .bookmark-bar{
+/*	background-color: #f3f3f3;*/
+	padding: 5px;
+	padding-left: 20px;
+}
+
+.col-nav-left .menus:hover {
+	cursor: pointer;
+}
+
+.col-nav-left .menus .active {
+	background-color: #4285f4 !important;
+	color: #fff;
+	font-weight: bold;
+}
+
+.navbar {
+	background-color: #4285f4;
+	font-weight: bold;
+	color: #FFF;
+}
+
+.navbar .glyphicon{
+	color: #4E5665;
+}
+
+.navbar-btn {
+	margin-right: 5px;
+}
+
+.navbar .divider {
+	border-right: solid 1px #f3f3f3;
+	padding-right: 10px;
+	padding-left: 10px;
+}
+
+.navbar-btn:hover, .bookmark-item .item-url:hover {
+	cursor: pointer;
+}
+
+.bookmark-item, .bookmark-folder {
+	display: inline-block;
+  	width: 24%;
+  	min-height: 200px;
+  	background-color: rgb(181, 185, 61);
+  	overflow: hidden;
+  	margin-right: 5px;
+}
+
+.bookmark-item .item-url {
+	display: inline-block;
+	min-height: 125px;
+	color: #fff;
+	width: 100%;
+	text-align: center;
+	padding-top: 50px;
+	font-size: 20px;
+}
+
+.bookmark-item .item-details {
+	background-color: #FFF;
+	display: inline-block;
+	width: 100%;
+	min-height: 75px;
+	padding-left: 5px;
+}
+
+.bookmark-item .item-details .item-edit{
+	padding-bottom: 10px;
+	display: inline-block;
+	width: 100%;
+}
+
+.bookmark-item .item-details .name {
+	display: inline-block;
+	width: 80%;
+	font-weight: bold;
+	padding: 10px;
+}
+
+.bookmark-item .item-details .glyphicon:hover {
+	cursor: pointer;
+}
+
+.bookmark-folder .foldername {
+	display: inline-block;
+	min-height: 125px;
+	color: #fff;
+	width: 100%;
+	padding-left: 75px;
+	padding-top: 50px;
+	font-size: 20px;
+}
+
+.bookmark-folder .glyphicon,.bookmark-folder .glyphicon:hover {
+	cursor: pointer;
+	font-size: 50px;
+	color: #f3f3f3;
+	width: 100%;
+	padding-top: 10px;
+	padding-right: 10px;
+	display:inline-block;
+	text-align: right;
+}
+
+.bookmark-content .breadcrumb {
+	background-color: #fff;
+}
+
+.site-input {
+	display:inline-block;
+	width: 200px;
+}
